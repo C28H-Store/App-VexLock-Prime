@@ -1,80 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE plist PUBLIC
-"-//Apple//DTD PLIST 1.0//EN"
-"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-
 <dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <!-- Đường dẫn trỏ tới trang web / Web Clip trên GitHub Pages của bạn -->
+            <key>URL</key>
+            <string>https://c28h-store.github.io/App-VexLock-Prime/</string>
 
-<key>PayloadContent</key>
+            <!-- Tên hiển thị dưới Icon trên màn hình chính iPhone/iPad -->
+            <key>Label</key>
+            <string>VexLock Prime</string>
 
-<array>
+            <!-- Cho phép người dùng gỡ bỏ cấu hình hoặc ứng dụng này -->
+            <key>IsRemovable</key>
+            <true/>
 
-<dict>
+            <!-- Mở chế độ toàn màn hình như ứng dụng gốc, ẩn thanh địa chỉ Safari -->
+            <key>FullScreen</key>
+            <true/>
 
-<key>FullScreen</key>
-<true/>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.vexlock.prime.webclip</string>
+            <key>PayloadUUID</key>
+            <string>7C8B9A1F-2E3D-4F5A-9B8C-1A2B3C4D5E6F</string>
+        </dict>
+    </array>
 
-<key>IsRemovable</key>
-<true/>
-
-<key>Label</key>
-<string>C28H Aim</string>
-
-<key>PayloadDescription</key>
-<string>C28H Aim WebClip</string>
-
-<key>PayloadDisplayName</key>
-<string>VexLock Prime</string>
-
-<key>PayloadIdentifier</key>
-<string>com.c28h.aim.webclip</string>
-
-<key>PayloadOrganization</key>
-<string>C28H</string>
-
-<key>PayloadType</key>
-<string>com.apple.webClip.managed</string>
-
-<key>PayloadUUID</key>
-<string>9C28H001-0000-4000-8000-000000000001</string>
-
-<key>PayloadVersion</key>
-<integer>1</integer>
-
-<key>URL</key>
-<string>
-https://c28h-store.github.io/App-VexLock-Prime/
-</string>
-
+    <!-- Thông tin hồ sơ cấu hình hiển thị trên thiết bị iOS -->
+    <key>PayloadDisplayName</key>
+    <string>Cài đặt VexLock Prime</string>
+    <key>PayloadDescription</key>
+    <string>Hồ sơ cấu hình cài đặt ứng dụng VexLock Prime lên màn hình chính.</string>
+    <key>PayloadOrganization</key>
+    <string>C28H Store</string>
+    <key>PayloadIdentifier</key>
+    <string>com.vexlock.prime.profile</string>
+    <key>PayloadUUID</key>
+    <string>1F2E3D4C-5B6A-7F8E-9D0C-1A2B3C4D5E6F</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
 </dict>
-
-</array>
-
-
-<key>PayloadDisplayName</key>
-<string>C28H Aim</string>
-
-<key>PayloadIdentifier</key>
-<string>com.c28h.aim.profile</string>
-
-<key>PayloadOrganization</key>
-<string>C28H</string>
-
-<key>PayloadRemovalDisallowed</key>
-<false/>
-
-<key>PayloadType</key>
-<string>Configuration</string>
-
-<key>PayloadUUID</key>
-<string>9C28H002-0000-4000-8000-000000000002</string>
-
-<key>PayloadVersion</key>
-<integer>1</integer>
-
-</dict>
-
 </plist>
