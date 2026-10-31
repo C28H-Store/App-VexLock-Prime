@@ -5,21 +5,29 @@
     <key>PayloadContent</key>
     <array>
         <dict>
-            <!-- Đường dẫn trỏ tới trang web / Web Clip trên GitHub Pages của bạn -->
+            <!-- Đường dẫn trỏ tới trang web VexLock Prime trên GitHub Pages của bạn -->
             <key>URL</key>
             <string>https://c28h-store.github.io/App-VexLock-Prime/</string>
 
-            <!-- Tên hiển thị dưới Icon trên màn hình chính iPhone/iPad -->
+            <!-- Tên hiển thị dưới Icon trên màn hình chính -->
             <key>Label</key>
             <string>VexLock Prime</string>
 
-            <!-- Cho phép người dùng gỡ bỏ cấu hình hoặc ứng dụng này -->
+            <!-- Cho phép gỡ bỏ ứng dụng -->
             <key>IsRemovable</key>
             <true/>
 
-            <!-- Mở chế độ toàn màn hình như ứng dụng gốc, ẩn thanh địa chỉ Safari -->
+            <!-- Mở chế độ toàn màn hình không có thanh địa chỉ Safari -->
             <key>FullScreen</key>
             <true/>
+
+            <!-- ======================================================= -->
+            <!-- DỮ LIỆU ẢNH AVATAR HIỂN THỊ MÀN HÌNH CHÍNH (BASE64)       -->
+            <!-- ======================================================= -->
+            <key>Icon</key>
+            <data>
+            iVBORw0KGgoAAAANSU6AAAAABJRU5ErkJggg==
+            </data>
 
             <key>PayloadType</key>
             <string>com.apple.webClip.managed</string>
@@ -32,11 +40,11 @@
         </dict>
     </array>
 
-    <!-- Thông tin hồ sơ cấu hình hiển thị trên thiết bị iOS -->
+    <!-- Thông tin hồ sơ cấu hình hiển thị trên iOS -->
     <key>PayloadDisplayName</key>
-    <string>Cài đặt VexLock Prime</string>
+    <string>VexLock Prime</string>
     <key>PayloadDescription</key>
-    <string>Hồ sơ cấu hình cài đặt ứng dụng VexLock Prime lên màn hình chính.</string>
+    <string>VexLock Prime</string>
     <key>PayloadOrganization</key>
     <string>C28H Store</string>
     <key>PayloadIdentifier</key>
