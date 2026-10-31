@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<title>VexLock Prime</title>
+<link rel="apple-touch-icon" href="https://i.postimg.cc/T3P832tk/image(20261031-014044).png">
+
+<style>
+:root {
+  --bg: #0b0d12;
+  --yellow: #ffcc00;
+  --yellow-glow: rgba(255, 204, 0, 0.35);
+  --muted: #a0aab8;
+  --text: #ffffff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* --- 1. MÀN HÌNH ĐĂNG NHẬP --- */
+#login-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.login-card {
+  background: linear-gradient(180deg, #12151e 0%, #08090d 100%);
+  border: 1px solid #232836;
+  border-radius: 28px;
+  padding: 30px 22px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+}
+.login-avatar {
+  width: 85px; height: 85px; border-radius: 50%;
+  border: 2px solid var(--yellow);
+  box-shadow: 0 0 20px var(--yellow-glow);
+  object-fit: cover; margin-bottom: 12px;
+}
+.app-title { font-size: 24px; font-weight: 950; color: #fff; margin: 0; }
+.app-subtitle { font-size: 13px; font-weight: 900; color: var(--yellow); letter-spacing: 2px; margin: 4px 0 12px; }
+.badge-ios {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #192233; border: 1px solid #2b3954; color: #3b82f6;
+  padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-bottom: 22px;
+}
+.key-input-group { position: relative; margin-bottom: 16px; }
+.key-input {
+  width: 100%; background: #0d1017; border: 1.5px solid #262d3d; border-radius: 16px;
+  padding: 15px 15px 15px 45px; color: #fff; font-size: 14px; font-weight: 700; outline: none;
+}
+.key-input:focus { border-color: var(--yellow); box-shadow: 0 0 12px var(--yellow-glow); }
+.key-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #64748b; }
+.btn-login {
+  width: 100%; background: linear-gradient(135deg, #ffdc33, #ffa800); border: none;
+  border-radius: 16px; padding: 15px; color: #000; font-size: 16px; font-weight: 950; cursor: pointer;
+}
+.contact-info { margin-top: 20px; font-size: 12px; color: var(--muted); font-weight: 700; }
+.contact-info span { color: var(--yellow); }
+.error-msg { color: #ff4d4d; font-size: 12px; font-weight: 800; margin-top: 10px; display: none; }
+
+
+/* --- 2. GIAO DIỆN TRUNG GIAN (MENU XANH GAMING VIỀN MỎNG) --- */
+#gaming-menu {
+  display: none;
+  max-width: 480px;
+  margin: auto;
+  min-height: 100vh;
+  padding: 30px 16px;
+  text-align: center;
+  background: radial-gradient(circle at center, #061a24 0%, #040d14 100%);
+}
+.menu-avatar {
+  width: 90px; height: 90px; border-radius: 50%;
+  border: 1px solid #00ffcc;
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+  object-fit: cover; margin: 15px auto;
+}
+.menu-box {
+  background: rgba(8, 24, 36, 0.7);
+  border: 1px solid rgba(0, 255, 204, 0.4);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.2s;
+}
+.menu-box:hover { border-color: #00ffcc; background: rgba(0, 255, 204, 0.1); }
+.menu-box.locked { opacity: 0.5; border-color: #4a5568; pointer-events: none; }
+.menu-title { font-size: 14px; font-weight: 900; color: #00ffcc; text-align: left; }
+.menu-sub { font-size: 11px; color: #8ba3af; text-align: left; }
+.action-btn {
+  background: linear-gradient(135deg, #00ffcc, #0099ff);
+  border: none; border-radius: 8px; padding: 7px 14px;
+  color: #000; font-size: 12px; font-weight: 900; cursor: pointer;
+}
+.btn-deactivate {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  width: 100%; border-radius: 14px; padding: 14px;
+  font-weight: 900; font-size: 14px; cursor: pointer; margin-top: 25px;
+}
+
+
+/* --- 3. GIAO DIỆN CHỨC NĂNG CHÍNH --- */
+#main-app {
+  display: none;
+  max-width: 520px;
+  margin: auto;
+  padding: calc(14px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom));
+}
+.header-bar { display: flex; justify-content: space-between; align-items: center; margin: 6px 0 18px 2px; }
+.title-left { font-weight: 950; font-size: 24px; color: #fff; }
+.status-online { font-size: 13px; font-weight: 900; color: #00ff66; background: rgba(0, 255, 102, 0.12); border: 1px solid #00ff66; border-radius: 20px; padding: 4px 12px; }
+
+/* Các ô panel viền mỏng riêng biệt */
+.panel { background: #11141c; border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+.panel-red { border: 1px solid #ff4d4d; }
+.panel-blue { border: 1px solid #00d2ff; }
+.panel-orange { border: 1px solid #ff8800; }
+.panel-yellow { border: 1px solid #ffcc00; }
+.panel-white { border: 1px solid #ffffff; }
+
+.profile { display: flex; align-items: center; gap: 12px; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #ff4d4d; object-fit: cover; }
+.name-version-row { display: flex; align-items: center; gap: 8px; }
+.name { font-size: 15px; font-weight: 900; }
+.version-badge { border: 1px solid #3b4454; border-radius: 50px; padding: 2px 8px; background: #121620; color: #00d2ff; font-size: 10px; font-weight: 850; }
+.sub { font-size: 11px; color: #a0aab8; margin-top: 2px; }
+
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 2px; font-size: 13px; }
+.label { color: #a0aab8; font-weight: 800; }
+.value { font-weight: 850; text-align: right; }
+
+.section-title { font-size: 14px; font-weight: 900; margin: 0 0 10px; }
+.head { display: flex; justify-content: space-between; align-items: center; }
+.tag { font-size: 11px; font-weight: 850; border: 1px solid #00d2ff; color: #00d2ff; border-radius: 99px; padding: 3px 9px; background: rgba(0,210,255,0.1); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.stat, .toggle { border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: #0a0c10; padding: 11px; }
+.stat-label { font-size: 11px; color: #a0aab8; font-weight: 750; margin-bottom: 5px; }
+.stat-value { font-size: 17px; font-weight: 900; color: #fff; }
+.stat-value small { font-size: 11px; color: #a0aab8; }
+.mode-title { font-size: 13px; font-weight: 900; margin: 0 0 10px; color: #d0d7e5; }
+
+.toggle { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 8px 10px; }
+.toggle span { font-size: 12px; font-weight: 850; }
+.switch { appearance: none; width: 38px; height: 22px; border-radius: 99px; background: #2c3340; position: relative; flex: 0 0 38px; margin: 0; cursor: pointer; }
+.switch:before { content: ""; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; border-radius: 50%; background: #f3f4f6; transition: transform .18s; }
+.switch:checked { background: #00d2ff; }
+.switch:checked:before { transform: translateX(16px); background: #000; }
+
+/* CSS cho ô AimLock Vip mới */
+.vip-control-group { margin-top: 10px; }
+.vip-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.range-slider { width: 100%; accent-color: #ffcc00; margin-bottom: 12px; cursor: pointer; }
+.fps-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.fps-btn { background: #1a1e29; border: 1px solid #3b4454; border-radius: 10px; padding: 10px; color: #fff; font-weight: 800; font-size: 12px; cursor: pointer; text-align: center; }
+.fps-btn.active { background: #ffcc00; color: #000; border-color: #ffcc00; }
+
+.back-menu-btn {
+  background: #222836; border: 1px solid #4a5568; border-radius: 12px; padding: 12px;
+  color: #fff; font-size: 13px; font-weight: 900; width: 100%; cursor: pointer; margin-bottom: 10px; text-align: center;
+}
+.activate { width: 100%; border: none; border-radius: 12px; padding: 14px; background: linear-gradient(135deg, #00d2ff, #0072ff); color: #fff; font-size: 14px; font-weight: 950; cursor: pointer; margin-top: 10px; }
+.note { display: none; margin-top: 10px; padding: 10px; border: 1px solid #3b4454; border-radius: 10px; background: #191d24; color: #d8dde6; font-size: 12px; }
+.foot { text-align: center; color: #747c89; font-size: 11px; margin-top: 14px; }
+</style>
+</head>
+<body>
+
+<!-- 1. MÀN HÌNH ĐĂNG NHẬP -->
+<div id="login-screen">
+  <div class="login-card">
+    <img class="login-avatar" src="https://i.postimg.cc/T3P832tk/image(20261031-014044).png" alt="Avatar">
+    <div class="app-title">VexLock Prime</div>
+    <div class="app-subtitle">PREMIUM</div>
+    <div class="badge-ios"><span>🍎</span> iOS Supported</div>
+    <div class="key-input-group">
+      <span class="key-icon">⌨️</span>
+      <input type="text" id="input-key-field" class="key-input" placeholder="Nhập key iOS..." autocomplete="off">
+    </div>
+    <button class="btn-login" onclick="verifyAndLogin()">KÍCH HOẠT APP</button>
+    <div class="error-msg" id="login-error">Key không hợp lệ hoặc đã hết hạn!</div>
+    <div class="contact-info">Liên hệ: <span>0981407586</span></div>
+  </div>
+</div>
+
+<!-- 2. GIAO DIỆN TRUNG GIAN (MENU XANH GAMING VIỀN MỎNG) -->
+<div id="gaming-menu">
+  <img class="menu-avatar" src="https://i.postimg.cc/T3P832tk/image(20261031-014044).png" alt="Avatar">
+  <div style="font-size: 18px; font-weight: 950; color: #00ffcc; margin-bottom: 20px;">VexLock Gaming Hub</div>
+  
+  <!-- Ô File Support (Chỉ mở cho Tuần, Tháng, Vĩnh Viễn) -->
+  <div id="file-support-box" class="menu-box">
+    <div>
+      <div class="menu-title">File Support <span id="file-lock-icon"></span></div>
+      <div class="menu-sub">VexLock Prime</div>
+    </div>
+    <button class="action-btn" id="btn-tai-file" onclick="alert('Đang tải file hỗ trợ kéo tâm...')">Tải File</button>
+  </div>
+
+  <button class="action-btn" style="width:100%; padding: 14px; font-size: 14px; margin-bottom: 12px;" onclick="goToMainApp()">VÀO PHẦN CHỨC NĂNG ➔</button>
+  
+  <button class="btn-deactivate" onclick="deactivateKey()">🔓 Deactivate Key (Đăng Xuất)</button>
+</div>
+
+<!-- 3. GIAO DIỆN CHỨC NĂNG CHÍNH -->
+<main id="main-app">
+  <button class="back-menu-btn" onclick="backToMenu()">❮ Quay Lại Menu Chính</button>
+
+  <div class="header-bar">
+    <div class="title-left">VexLock Prime</div>
+    <div class="status-online">Online</div>
+  </div>
+
+  <!-- Ô Profile viền đỏ -->
+  <section class="panel panel-red">
+    <div class="profile">
+      <img class="avatar" src="https://i.postimg.cc/T3P832tk/image(20261031-014044).png" alt="Avatar">
+      <div>
+        <div class="name-version-row">
+          <div class="name">C28H × BIN</div>
+          <div class="version-badge">v2.0.1</div>
+        </div>
+        <div class="sub">VexLock Prime</div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px;"><span class="label">🔑 KEY</span><span class="value" id="display-key-name">--</span></div>
+    <div class="row"><span class="label">⌛ HẠN CÒN</span><span class="value" id="display-key-time" style="color:#00ff66">--</span></div>
+  </section>
+
+  <!-- Ô Premium viền xanh nước biển -->
+  <section class="panel panel-blue">
+    <div class="head"><h2 class="section-title" style="margin:0;">Premium</h2><span class="tag">100% · 10/10</span></div>
+    <div class="grid" style="margin-top: 10px;">
+      <div class="stat"><div class="stat-label">10x Sensi</div><div class="stat-value">10x</div></div>
+      <div class="stat"><div class="stat-label">Chức năng bật</div><div class="stat-value"><b id="count">0</b><small> / 10</small></div></div>
+    </div>
+  </section>
+
+  <!-- Ô Basic Mode viền cam -->
+  <section class="panel panel-orange">
+    <h2 class="mode-title">Basic Mode</h2>
+    <div class="grid">
+      <label class="toggle"><span>Nhẹ Tâm</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>Buff Sensi</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>Buff Màn</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>Fix</span><input class="switch feature" type="checkbox"></label>
+    </div>
+  </section>
+
+  <!-- Ô Premium Mode viền vàng -->
+  <section class="panel panel-yellow">
+    <h2 class="mode-title">Premium Mode</h2>
+    <div class="grid">
+      <label class="toggle"><span>AimLock</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>HeadLock</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>ShotTrick</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>AimAssist</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>Fix Rung</span><input class="switch feature" type="checkbox"></label>
+      <label class="toggle"><span>Fix Lố</span><input class="switch feature" type="checkbox"></label>
+    </div>
+  </section>
+
+  <!-- Ô Mới: AimLock Vip viền trắng (Chỉ mở cho Tháng & Vĩnh Viễn) -->
+  <section class="panel panel-white" id="aimlock-vip-panel">
+    <h2 class="mode-title" style="display:flex; justify-content:space-between; align-items:center;">
+      AimLock Vip <span id="aimlock-lock-badge" style="font-size:11px; color:#ff4d4d;">🔒 Khóa (Cần Key Tháng/VV)</span>
+    </h2>
+    <div id="aimlock-content-inner" style="opacity:0.4; pointer-events:none;">
+      <div class="vip-control-group">
+        <div class="vip-label"><span>DPI</span><span id="dpi-val">60</span></div>
+        <input type="range" class="range-slider" min="1" max="120" value="60" oninput="document.getElementById('dpi-val').innerText=this.value">
+      </div>
+      <div class="vip-control-group">
+        <div class="vip-label"><span>Booster</span><span id="boost-val">50%</span></div>
+        <input type="range" class="range-slider" min="1" max="100" value="50" oninput="document.getElementById('boost-val').innerText=this.value+'%'">
+      </div>
+      <div class="vip-control-group">
+        <div class="vip-label"><span>Tần số quét & FPS</span></div>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+          <input type="checkbox" id="hz120" style="width:18px; height:18px; accent-color:#00ff66;">
+          <label for="hz120" style="font-size:12px; font-weight:800;">120Hz Ultra Mode</label>
+        </div>
+        <div class="fps-options">
+          <div class="fps-btn active" onclick="selectFps(this)">120 Fps</div>
+          <div class="fps-btn" onclick="selectFps(this)">144 Fps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" style="border:1px solid #3b4454;">
+    <button class="activate" id="activate">KÍCH HOẠT HỆ THỐNG</button>
+    <div class="note" id="note">Hệ thống kéo tâm VexLock Prime đã hoạt động!</div>
+  </section>
+
+  <div class="foot">C28H × BIN · VexLock Prime v2.0.1</div>
+</main>
+
+<script>
+let currentKeyType = "";
+let timerInterval = null;
+
+// Kiểm tra phiên đăng nhập sẵn có khi mở web
+window.onload = function() {
+  const savedKey = localStorage.getItem('active_vexlock_key');
+  if (savedKey) {
+    validateAndOpenSession(savedKey, false);
+  }
+};
+
+function verifyAndLogin() {
+  const inputKey = document.getElementById('input-key-field').value.trim();
+  const errorElement = document.getElementById('login-error');
+  const keyPattern = /^c28hstore-(keygio|keyngay|keytuan|keythang|keyvv)-[A-Z0-9]{5}$/i;
+  
+  if (!keyPattern.test(inputKey)) {
+    errorElement.innerText = "Key không hợp lệ! Vui lòng kiểm tra lại.";
+    errorElement.style.display = 'block';
+    return;
+  }
+
+  const usedKeys = JSON.parse(localStorage.getItem('c28h_used_keys') || '{}');
+  if (usedKeys[inputKey] && usedKeys[inputKey].expired) {
+    errorElement.innerText = "Key này đã hết hạn hiệu lực!";
+    errorElement.style.display = 'block';
+    return;
+  }
+
+  let durationMs = 0;
+  if (inputKey.includes('-keygio-')) { durationMs = 1 * 3600 * 1000; currentKeyType = 'gio'; }
+  else if (inputKey.includes('-keyngay-')) { durationMs = 24 * 3600 * 1000; currentKeyType = 'ngay'; }
+  else if (inputKey.includes('-keytuan-')) { durationMs = 7 * 24 * 3600 * 1000; currentKeyType = 'tuan'; }
+  else if (inputKey.includes('-keythang-')) { durationMs = 30 * 24 * 3600 * 1000; currentKeyType = 'thang'; }
+  else if (inputKey.includes('-keyvv-')) { durationMs = 999999 * 24 * 3600 * 1000; currentKeyType = 'vv'; }
+
+  let keySession = usedKeys[inputKey];
+  if (!keySession) {
+    keySession = { expireTime: Date.now() + durationMs, expired: false };
+    usedKeys[inputKey] = keySession;
+    localStorage.setItem('c28h_used_keys', JSON.stringify(usedKeys));
+  }
+
+  localStorage.setItem('active_vexlock_key', inputKey);
+  validateAndOpenSession(inputKey, true);
+}
+
+function validateAndOpenSession(key, isNewLogin) {
+  const usedKeys = JSON.parse(localStorage.getItem('c28h_used_keys') || '{}');
+  const session = usedKeys[key];
+
+  if (!session || session.expired || Date.now() >= session.expireTime) {
+    alert("Key đã hết hạn hoặc không tồn tại!");
+    deactivateKey();
+    return;
+  }
+
+  // Xác định loại key từ chuỗi
+  if (key.includes('-keygio-')) currentKeyType = 'gio';
+  else if (key.includes('-keyngay-')) currentKeyType = 'ngay';
+  else if (key.includes('-keytuan-')) currentKeyType = 'tuan';
+  else if (key.includes('-keythang-')) currentKeyType = 'thang';
+  else if (key.includes('-keyvv-')) currentKeyType = 'vv';
+
+  // Chuyển từ màn login sang Menu Xanh Gaming
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('gaming-menu').style.display = 'block';
+  document.getElementById('main-app').style.display = 'none';
+
+  // Phân quyền File Support (Tuần, Tháng, Vĩnh Viễn mới mở)
+  const fileBox = document.getElementById('file-support-box');
+  const fileLock = document.getElementById('file-lock-icon');
+  const btnTaiFile = document.getElementById('btn-tai-file');
+
+  if (['tuan', 'thang', 'vv'].includes(currentKeyType)) {
+    fileBox.classList.remove('locked');
+    fileLock.innerHTML = "";
+    btnTaiFile.style.opacity = "1";
+  } else {
+    fileBox.classList.add('locked');
+    fileLock.innerHTML = "🔒 (Cần Key Tuần/Tháng/VV)";
+  }
+
+  // Cập nhật thông tin key lên app chính sẵn
+  document.getElementById('display-key-name').innerText = key;
+  startKeyTimer(key, session.expireTime);
+
+  if (isNewLogin) {
+    // Nếu mới đăng nhập có thể thông báo nhẹ
+  }
+}
+
+function goToMainApp() {
+  document.getElementById('gaming-menu').style.display = 'none';
+  document.getElementById('main-app').style.display = 'block';
+
+  // Phân quyền ô AimLock Vip (Chỉ Tháng và Vĩnh Viễn mới mở)
+  const aimLockInner = document.getElementById('aimlock-content-inner');
+  const aimLockBadge = document.getElementById('aimlock-lock-badge');
+
+  if (['thang', 'vv'].includes(currentKeyType)) {
+    aimLockInner.style.opacity = "1";
+    aimLockInner.style.pointerEvents = "auto";
+    aimLockBadge.innerHTML = "🔓 Đã Mở Khóa";
+    aimLockBadge.style.color = "#00ff66";
+  } else {
+    aimLockInner.style.opacity = "0.4";
+    aimLockInner.style.pointerEvents = "none";
+    aimLockBadge.innerHTML = "🔒 Khóa (Cần Key Tháng/VV)";
+    aimLockBadge.style.color = "#ff4d4d";
+  }
+}
+
+function backToMenu() {
+  document.getElementById('main-app').style.display = 'none';
+  document.getElementById('gaming-menu').style.display = 'block';
+}
+
+function deactivateKey() {
+  localStorage.removeItem('active_vexlock_key');
+  if (timerInterval) clearInterval(timerInterval);
+  document.getElementById('gaming-menu').style.display = 'none';
+  document.getElementById('main-app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('input-key-field').value = '';
+  document.getElementById('login-error').style.display = 'none';
+}
+
+function startKeyTimer(key, expireTime) {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const remaining = expireTime - Date.now();
+    if (remaining <= 0 && !key.includes('-keyvv-')) {
+      clearInterval(timerInterval);
+      const usedKeys = JSON.parse(localStorage.getItem('c28h_used_keys') || '{}');
+      if (usedKeys[key]) {
+        usedKeys[key].expired = true;
+        localStorage.setItem('c28h_used_keys', JSON.stringify(usedKeys));
+      }
+      alert("Key đã hết hạn! Ứng dụng sẽ tự động đăng xuất.");
+      deactivateKey();
+    } else {
+      if (key.includes('-keyvv-')) {
+        document.getElementById('display-key-time').innerText = "Vĩnh Viễn";
+      } else {
+        const h = Math.floor(remaining / (1000 * 3600));
+        const m = Math.floor((remaining % (1000 * 3600)) / (1000 * 60));
+        const s = Math.floor((remaining % (1000 * 60)) / 1000);
+        document.getElementById('display-key-time').innerText = `${h}h ${m}m ${s}s`;
+      }
+    }
+  }, 1000);
+}
+
+function selectFps(el) {
+  document.querySelectorAll('.fps-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Bật tắt tính năng chức năng
+const switches = [...document.querySelectorAll(".feature")];
+const count = document.getElementById("count");
+switches.forEach(s => s.addEventListener("change", () => {
+  count.textContent = switches.filter(x => x.checked).length;
+}));
+document.getElementById("activate").addEventListener("click", () => {
+  document.getElementById("note").style.display = "block";
+});
+</script>
+</body>
+</html>
