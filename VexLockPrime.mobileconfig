@@ -5,7 +5,7 @@
     <key>PayloadContent</key>
     <array>
         <dict>
-            <!-- Đường dẫn trỏ tới trang web VexLock Prime trên GitHub Pages của bạn -->
+            <!-- Đường dẫn trỏ tới trang web VexLock Prime của bạn -->
             <key>URL</key>
             <string>https://c28h-store.github.io/App-VexLock-Prime/</string>
 
@@ -13,21 +13,13 @@
             <key>Label</key>
             <string>VexLock Prime</string>
 
-            <!-- Cho phép gỡ bỏ ứng dụng -->
+            <!-- Cho phép người dùng gỡ bỏ ứng dụng -->
             <key>IsRemovable</key>
             <true/>
 
             <!-- Mở chế độ toàn màn hình không có thanh địa chỉ Safari -->
             <key>FullScreen</key>
             <true/>
-
-            <!-- Ảnh Avatar chuẩn từ link của bạn đã được mã hóa Base64 đưa vào đây -->
-            <key>Icon</key>
-            <data>
-            iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEUAAP8AZgAgb1S9AAAA
-            AXRSTlMAQObYZgAAAFBJREFUeF7twQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAA
-            AAAAAAAAAAAAAAAAAAAAAIBfA8wAAAGj42YAAAAASUVORK5CYII=
-            </data>
 
             <key>PayloadType</key>
             <string>com.apple.webClip.managed</string>
