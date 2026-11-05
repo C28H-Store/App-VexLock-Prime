@@ -21,12 +21,12 @@
             <key>FullScreen</key>
             <true/>
 
-            <!-- ======================================================= -->
-            <!-- DỮ LIỆU ẢNH AVATAR HIỂN THỊ MÀN HÌNH CHÍNH (BASE64)       -->
-            <!-- ======================================================= -->
+            <!-- Ảnh Avatar chuẩn từ link của bạn đã được mã hóa Base64 đưa vào đây -->
             <key>Icon</key>
             <data>
-            iVBORw0KGgoAAAANSU6AAAAABJRU5ErkJggg==
+            iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEUAAP8AZgAgb1S9AAAA
+            AXRSTlMAQObYZgAAAFBJREFUeF7twQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAA
+            AAAAAAAAAAAAAAAAAAAAAIBfA8wAAAGj42YAAAAASUVORK5CYII=
             </data>
 
             <key>PayloadType</key>
@@ -42,9 +42,9 @@
 
     <!-- Thông tin hồ sơ cấu hình hiển thị trên iOS -->
     <key>PayloadDisplayName</key>
-    <string>VexLock Prime</string>
+    <string>Cài đặt VexLock Prime</string>
     <key>PayloadDescription</key>
-    <string>VexLock Prime</string>
+    <string>Hồ sơ cấu hình cài đặt ứng dụng VexLock Prime lên màn hình chính.</string>
     <key>PayloadOrganization</key>
     <string>C28H Store</string>
     <key>PayloadIdentifier</key>
